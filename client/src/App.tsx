@@ -27,20 +27,34 @@ export default function App() {
   };
 
   return (
-    <div style={{ maxWidth: 400, margin: "0 auto", padding: 16 }}>
-      <h1>SocialSync</h1>
+    <div
+      style={{
+        background: "#f5f5f5",
+        minHeight: "100vh",
+        padding: 16
+      }}
+    >
+      <div style={{ maxWidth: 400, margin: "0 auto" }}>
+        <h1>SocialSync</h1>
 
-      <div style={{ minHeight: "60vh" }}>
-        {renderScreen()}
+        <div style={{ minHeight: "60vh" }}>
+          {renderScreen()}
+        </div>
+
+        <nav
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            marginTop: 20
+          }}
+        >
+          <button onClick={() => setTab("dashboard")}>🏠</button>
+          <button onClick={() => setTab("inbox")}>💬</button>
+          <button onClick={() => setTab("analytics")}>📊</button>
+          <button onClick={() => setTab("focus")}>🎯</button>
+          <button onClick={() => setTab("profile")}>👤</button>
+        </nav>
       </div>
-
-      <nav style={{ display: "flex", justifyContent: "space-between", marginTop: 20 }}>
-        <button onClick={() => setTab("dashboard")}>🏠</button>
-        <button onClick={() => setTab("inbox")}>💬</button>
-        <button onClick={() => setTab("analytics")}>📊</button>
-        <button onClick={() => setTab("focus")}>🎯</button>
-        <button onClick={() => setTab("profile")}>👤</button>
-      </nav>
     </div>
   );
 }
