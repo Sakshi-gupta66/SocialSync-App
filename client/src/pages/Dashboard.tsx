@@ -2,6 +2,7 @@ import SocialAppCard from "../components/SocialAppCard";
 import { socialApps } from "../data/mockData";
 import { generateDailyInsight, detectAddictionPattern } from "../utils/aiInsights";
 import { screenTimeData } from "../data/screenTimeData";
+import { calculateSocialScore, getBadge } from "../utils/socialScore";
 
 export default function Dashboard() {
   
@@ -20,6 +21,16 @@ export default function Dashboard() {
 
   const insight = generateDailyInsight(totalTime, productivityPercent);
   const addictionWarning = detectAddictionPattern(totalTime);
+  const focusCompleted = true; // simulated for now
+  const focusStreak = 3; // simulated streak
+
+  const socialScore = calculateSocialScore(
+    totalTime,
+    productivityPercent,
+    focusCompleted
+  );
+
+  const badge = getBadge(socialScore);
 
   return (
     <div>
@@ -40,6 +51,27 @@ export default function Dashboard() {
           </p>
         )}
       </div>
+      <div
+        style={{
+          background: "#fffbe6",
+          padding: 14,
+          borderRadius: 8,
+          marginBottom: 16
+        }}
+      >
+        <strong>Daily Social Score 🎮</strong>
+
+        <h2 style={{ margin: "6px 0" }}>
+          {socialScore}/100
+        </h2>
+
+        <p>{badge}</p>
+
+        <p style={{ color: "#555" }}>
+          🔥 Focus Streak: {focusStreak} days
+        </p>
+      </div>
+
 
       <h2>Dashboard</h2>
       <p style={{ color: "#666", marginBottom: 16 }}>
