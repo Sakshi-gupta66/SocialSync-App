@@ -17,6 +17,10 @@ export default function Analytics() {
 
   return (
     <div>
+      <p style={{ color: "#999", fontSize: 13 }}>
+        📊 Screen-time insights are shown based on granted permissions.
+      </p>
+
       <h2>Screen Time Analytics</h2>
 
       <p style={{ color: "#666", marginBottom: 10 }}>

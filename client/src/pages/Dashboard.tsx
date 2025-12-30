@@ -1,11 +1,16 @@
+import { useState } from "react";
 import SocialAppCard from "../components/SocialAppCard";
 import { socialApps } from "../data/mockData";
-import { generateDailyInsight, detectAddictionPattern } from "../utils/aiInsights";
 import { screenTimeData } from "../data/screenTimeData";
+import { generateDailyInsight, detectAddictionPattern } from "../utils/aiInsights";
 import { calculateSocialScore, getBadge } from "../utils/socialScore";
 
 export default function Dashboard() {
-  
+
+  // 🔹 STATE
+  const [ghostMode, setGhostMode] = useState(true);
+
+  // 🔹 LOGIC
   const totalTime = screenTimeData.reduce(
     (sum, item) => sum + item.minutes,
     0
@@ -21,8 +26,9 @@ export default function Dashboard() {
 
   const insight = generateDailyInsight(totalTime, productivityPercent);
   const addictionWarning = detectAddictionPattern(totalTime);
-  const focusCompleted = true; // simulated for now
-  const focusStreak = 3; // simulated streak
+
+  const focusCompleted = true;
+  const focusStreak = 3;
 
   const socialScore = calculateSocialScore(
     totalTime,
@@ -32,51 +38,34 @@ export default function Dashboard() {
 
   const badge = getBadge(socialScore);
 
+  // 🔹 JSX
   return (
     <div>
-      <div
-        style={{
-          background: "#e6f7ff",
-          padding: 12,
-          borderRadius: 8,
-          marginBottom: 16
-        }}
-      >
+      {ghostMode && (
+        <p style={{ color: "#888", fontSize: 14 }}>
+          👻 Ghost Mode active — viewing silently
+        </p>
+      )}
+
+      <div style={{ background: "#e6f7ff", padding: 12, borderRadius: 8 }}>
         <strong>AI Insight 🤖</strong>
         <p>{insight}</p>
 
         {addictionWarning && (
           <p style={{ color: "red" }}>
-            ⚠️ Excessive screen time detected. Consider taking a break.
+            ⚠️ Excessive screen time detected.
           </p>
         )}
       </div>
-      <div
-        style={{
-          background: "#fffbe6",
-          padding: 14,
-          borderRadius: 8,
-          marginBottom: 16
-        }}
-      >
+
+      <div style={{ background: "#fffbe6", padding: 12, borderRadius: 8, marginTop: 12 }}>
         <strong>Daily Social Score 🎮</strong>
-
-        <h2 style={{ margin: "6px 0" }}>
-          {socialScore}/100
-        </h2>
-
+        <h2>{socialScore}/100</h2>
         <p>{badge}</p>
-
-        <p style={{ color: "#555" }}>
-          🔥 Focus Streak: {focusStreak} days
-        </p>
+        <p>🔥 Focus Streak: {focusStreak} days</p>
       </div>
 
-
-      <h2>Dashboard</h2>
-      <p style={{ color: "#666", marginBottom: 16 }}>
-        Unified view of your social apps
-      </p>
+      <h2 style={{ marginTop: 16 }}>Dashboard</h2>
 
       {socialApps.map((app) => (
         <SocialAppCard key={app.id} app={app} />
