@@ -1,4 +1,5 @@
 import { Conversation } from "../data/inboxMockData";
+import "../styles/card.css";
 
 export default function ConversationCard({
   convo,
@@ -8,15 +9,7 @@ export default function ConversationCard({
   onPinToggle: (id: number) => void;
 }) {
   return (
-    <div
-      style={{
-        border: "1px solid #ddd",
-        borderRadius: 10,
-        padding: 14,
-        marginBottom: 10,
-        background: convo.pinned ? "#fff7e6" : "#fff"
-      }}
-    >
+    <div className="card">
       <div style={{ display: "flex", justifyContent: "space-between" }}>
         <strong>{convo.contactName}</strong>
         <button onClick={() => onPinToggle(convo.id)}>

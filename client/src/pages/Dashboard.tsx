@@ -46,7 +46,7 @@ export default function Dashboard() {
           👻 Ghost Mode active — viewing silently
         </p>
       )}
-
+    <div style={{ marginBottom: 16 }}>
       <div style={{ background: "#e6f7ff", padding: 12, borderRadius: 8 }}>
         <strong>AI Insight 🤖</strong>
         <p>{insight}</p>
@@ -57,7 +57,7 @@ export default function Dashboard() {
           </p>
         )}
       </div>
-
+    </div>
       <div style={{ background: "#fffbe6", padding: 12, borderRadius: 8, marginTop: 12 }}>
         <strong>Daily Social Score 🎮</strong>
         <h2>{socialScore}/100</h2>

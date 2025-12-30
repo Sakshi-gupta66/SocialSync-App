@@ -1,4 +1,5 @@
 import { SocialApp } from "../data/mockData";
+import "../styles/card.css";
 
 export default function SocialAppCard({ app }: { app: SocialApp }) {
   const priorityColor =
@@ -9,15 +10,7 @@ export default function SocialAppCard({ app }: { app: SocialApp }) {
       : "#52c41a";
 
   return (
-    <div
-      style={{
-        border: "1px solid #ddd",
-        borderRadius: 10,
-        padding: 16,
-        marginBottom: 12,
-        background: "#fff"
-      }}
-    >
+    <div className="card">
       <div style={{ display: "flex", justifyContent: "space-between" }}>
         <h3>{app.name}</h3>
         <span
@@ -33,8 +26,7 @@ export default function SocialAppCard({ app }: { app: SocialApp }) {
         </span>
       </div>
 
-      <p style={{ margin: "6px 0", color: "#555" }}>{app.description}</p>
-
+      <p style={{ color: "#555" }}>{app.description}</p>
       <strong>{app.unread} unread notifications</strong>
     </div>
   );
