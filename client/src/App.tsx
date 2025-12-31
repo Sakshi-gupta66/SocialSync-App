@@ -1,5 +1,4 @@
-import { useState } from "react";
-
+import { useEffect, useState } from "react";
 import Dashboard from "./pages/Dashboard";
 import Inbox from "./pages/Inbox";
 import Analytics from "./pages/Analytics";
@@ -7,6 +6,15 @@ import Focus from "./pages/Focus";
 import Profile from "./pages/Profile";
 
 export default function App() {
+  const [theme, setTheme] = useState(
+    localStorage.getItem("theme") || "light"
+  );
+
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", theme);
+    localStorage.setItem("theme", theme);
+  }, [theme]);
+
   const [tab, setTab] = useState("dashboard");
 
   const renderScreen = () => {
@@ -27,6 +35,7 @@ export default function App() {
   };
 
   return (
+    
     <div
       style={{
         background: "#f5f5f5",
@@ -34,6 +43,15 @@ export default function App() {
         padding: 16
       }}
     >
+      <button
+        style={{ marginBottom: 10 }}
+        onClick={() =>
+          setTheme(theme === "light" ? "dark" : "light")
+        }
+      >
+        {theme === "light" ? "🌙 Dark Mode" : "☀️ Light Mode"}
+      </button>
+
       <div style={{ maxWidth: 400, margin: "0 auto" }}>
         <h1>SocialSync</h1>
 
