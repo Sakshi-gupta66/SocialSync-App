@@ -1,9 +1,11 @@
 import { useState } from "react";
+import { useAppContext } from "../context/AppContext";
 
 export default function Profile() {
-  const [ghostMode, setGhostMode] = useState(false);
+  // const [ghostMode, setGhostMode] = useState(false);
   const [notifAccess, setNotifAccess] = useState(true);
   const [usageAccess, setUsageAccess] = useState(true);
+  const { ghostMode, toggleGhostMode } = useAppContext();
 
   return (
     <div>
@@ -14,7 +16,7 @@ export default function Profile() {
           <input
             type="checkbox"
             checked={ghostMode}
-            onChange={() => setGhostMode(!ghostMode)}
+            onChange={toggleGhostMode}
           />
           {" "}Enable Ghost Mode 👻
         </label>

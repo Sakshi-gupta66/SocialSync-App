@@ -1,4 +1,5 @@
-import { useState } from "react";
+// import { useState } from "react";
+import { useAppContext } from "../context/AppContext";
 import SocialAppCard from "../components/SocialAppCard";
 import { socialApps } from "../data/mockData";
 import { screenTimeData } from "../data/screenTimeData";
@@ -8,7 +9,7 @@ import { calculateSocialScore, getBadge } from "../utils/socialScore";
 export default function Dashboard() {
 
   // 🔹 STATE
-  const [ghostMode, setGhostMode] = useState(true);
+  const { ghostMode } = useAppContext();
 
   // 🔹 LOGIC
   const totalTime = screenTimeData.reduce(
