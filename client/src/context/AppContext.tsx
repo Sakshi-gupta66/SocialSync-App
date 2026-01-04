@@ -1,4 +1,41 @@
-import { createContext, useContext, useState } from "react";
+// import { createContext, useContext, useEffect, useState } from "react";
+
+// interface AppContextType {
+//   ghostMode: boolean;
+//   toggleGhostMode: () => void;
+// }
+
+// const AppContext = createContext<AppContextType | undefined>(undefined);
+
+// export function AppProvider({ children }: { children: React.ReactNode }) {
+//   const [ghostMode, setGhostMode] = useState(false);
+
+//   const toggleGhostMode = () => {
+//     setGhostMode((prev) => !prev);
+//   };
+
+//   return (
+//     <AppContext.Provider value={{ ghostMode, toggleGhostMode }}>
+//       {children}
+//     </AppContext.Provider>
+//   );
+// }
+
+// export function useAppContext() {
+//   const context = useContext(AppContext);
+//   if (!context) {
+//     throw new Error("useAppContext must be used within AppProvider");
+//   }
+//   return context;
+// }
+
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  ReactNode
+} from "react";
 
 interface AppContextType {
   ghostMode: boolean;
@@ -7,12 +44,16 @@ interface AppContextType {
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
 
-export function AppProvider({ children }: { children: React.ReactNode }) {
-  const [ghostMode, setGhostMode] = useState(false);
+export function AppProvider({ children }: { children: ReactNode }) {
+  const [ghostMode, setGhostMode] = useState(
+    localStorage.getItem("ghostMode") === "true"
+  );
 
-  const toggleGhostMode = () => {
-    setGhostMode((prev) => !prev);
-  };
+  useEffect(() => {
+    localStorage.setItem("ghostMode", ghostMode.toString());
+  }, [ghostMode]);
+
+  const toggleGhostMode = () => setGhostMode(prev => !prev);
 
   return (
     <AppContext.Provider value={{ ghostMode, toggleGhostMode }}>
