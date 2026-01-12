@@ -2,6 +2,16 @@ import UsageChart from "../components/UsageChart";
 import { screenTimeData } from "../data/screenTimeData";
 
 export default function Analytics() {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => setLoading(false), 1000);
+  }, []);
+
+  if (loading) {
+    return <p>Loading analytics...</p>;
+  }
+
   const totalTime = screenTimeData.reduce(
     (sum, item) => sum + item.minutes,
     0

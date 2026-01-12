@@ -3,12 +3,25 @@ import { useAppContext } from "../context/AppContext";
 import { useAuth } from "../context/AuthContext";
 
 export default function Profile() {
-  // const [ghostMode, setGhostMode] = useState(false);
   const [notifAccess, setNotifAccess] = useState(true);
   const [usageAccess, setUsageAccess] = useState(true);
+
   const { ghostMode, toggleGhostMode } = useAppContext();
   const { user, login, logout } = useAuth();
 
+  // ✅ AUTH GUARD (Task 17.5)
+  if (!user) {
+    return (
+      <div>
+        <p>Please log in to view profile settings.</p>
+        <button onClick={() => login("user@example.com")}>
+          Login
+        </button>
+      </div>
+    );
+  }
+
+  // ✅ JSX ONLY BELOW
   return (
     <div>
       <h2>Privacy & Settings</h2>
@@ -52,17 +65,9 @@ export default function Profile() {
       <p style={{ marginTop: 16, color: "#888" }}>
         🔒 Your data stays on your device. No message content is stored without consent.
       </p>
-      {user ? (
-        <div>
-          <p>Logged in as {user.email}</p>
-          <button onClick={logout}>Logout</button>
-        </div>
-      ) : (
-        <button onClick={() => login("user@example.com")}>
-          Login
-        </button>
-      )}
 
+      <p>Logged in as {user.email}</p>
+      <button onClick={logout}>Logout</button>
     </div>
   );
 }
